@@ -1,0 +1,96 @@
+{% extends "base/base.html" %} 
+{% load static %} 
+{% load socialaccount %} 
+
+{% block title %}Login{% endblock %} 
+{% block start %}
+
+
+<!-- ============================ COMPONENT LOGIN ================================= -->
+<section class="section-content padding-bottom">
+  <div class="container-xl d-flex justify-content-center align-items-center mt-5">
+    <div class="row justify-content-center w-100">
+      <div class="col-xl-4">
+        <div class="card shadow-sm">
+          <div class="card-header text-center" style="font-size: 25px; background-color: #6f42c1; color: white;">
+            Sign In
+          </div>
+          <div class="card-body p-4">
+            <form method="POST" action="{% url 'login' %}?next={{ request.GET.next }}">
+              {% csrf_token %}
+              {% include "base/alert.html" %}
+
+              <div class="form-group mb-3">
+                <input
+                  class="form-control"
+                  required
+                  placeholder="Username"
+                  name="username"
+                  type="text"
+                  autocomplete="username"
+                />
+              </div>
+
+              <div class="form-group mb-3">
+                <input
+                  class="form-control"
+                  required
+                  placeholder="Password"
+                  name="password"
+                  type="password"
+                />
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <label class="custom-control custom-checkbox m-0">
+                  <input type="checkbox" class="custom-control-input" checked />
+                  <span class="custom-control-label">Remember</span>
+                </label>
+                <a href="{% url 'password_reset' %}">Forgot password?</a>
+              </div>
+
+              <div class="form-group mb-4">
+                <button 
+                  type="submit" 
+                  class="btn btn-lg btn-block text-white"
+                  style="background-color: #6f42c1; border-color: #6f42c1;">
+                  Login
+                </button>
+              </div>
+
+              <p class="text-center mt-3">
+                Don't have an account? <a href="{% url 'register' %}">Sign up</a>
+              </p>
+
+              <hr />
+
+              <div class="d-grid gap-2 mb-2">
+                <a 
+                  href="{% provider_login_url 'facebook' %}" 
+                  class="btn btn-block text-white"
+                  style="background-color: #3b5998;">
+                  <i class="fab fa-facebook-f me-2"></i> Login with Facebook
+                </a>
+              </div>
+
+              <div class="d-grid gap-2">
+                <a 
+                  href="{% provider_login_url 'google' %}?next=/" 
+                  class="btn btn-light btn-block border d-flex align-items-center justify-content-center">
+                  <img 
+                    src="{% static 'images/google.png' %}" 
+                    alt="Google" 
+                    style="width: 20px; margin-right: 10px;" />
+                  Login with Google
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================ COMPONENT LOGIN END ================================= -->
+
+{% endblock %}

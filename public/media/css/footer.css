@@ -1,0 +1,222 @@
+.footer {
+  background-color: #3f005d; /* Deep purple background */
+  position: relative;
+}
+
+.footer .inner-content {
+  padding: 40px 0;
+  border-bottom: none; /* No inner border in the simplified layout */
+  text-align: center; /* Center all content */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .footer .inner-content {
+    padding: 50px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer .inner-content {
+    padding: 20px 0;
+  }
+}
+
+.footer .footer-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer .footer-logo .logo-icon {
+  font-size: 3rem; /* Larger icon size */
+  color: #ecd8f0; /* Light purple for the icon */
+  display: inline-block; /* Make it inline with the H1 */
+  vertical-align: middle; /* Align vertically with text */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.footer .footer-logo h1 {
+  color: #fff; /* White text for the main title */
+  font-size: 2.5rem; /* Larger font size for main title */
+  font-weight: 800; /* Bold font */
+  margin-bottom: 5px; /* Space below main title */
+  text-shadow: 0 0 10px #c080ff, 0 0 20px #c080ff; /* Neon glow effect */
+  display: inline-block; /* Make H1 inline with the icon */
+  vertical-align: middle; /* Align vertically with icon */
+}
+
+.footer .footer-logo p.footer-subtitle { /* Targeting the p tag specifically for the subtitle */
+  color: #d6d6d6; /* Lighter grey for subtitle */
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 5px; /* Space below H1 */
+  margin-bottom: 0;
+}
+
+/* Footer Links Section (About Us, Contact Us etc.) */
+.footer .single-footer.f-link { /* Targeting specifically to avoid conflicts */
+  margin-top: 0; /* Adjust margin as entire footer is now one block */
+}
+
+.footer .single-footer h3:before { /* This rule is still here for general H3 but might not be used here */
+  display: none; /* Hide the underline */
+}
+
+.footer .f-link ul {
+  display: flex;
+  flex-wrap: wrap; /* Allow links to wrap on smaller screens */
+  justify-content: center; /* Center the links */
+  gap: 20px; /* Space between links */
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin-bottom: 20px; /* Space below links */
+}
+
+@media (max-width: 767px) {
+  .footer .f-link ul {
+    flex-direction: column; /* Stack links vertically on small screens */
+    gap: 10px; /* Smaller gap for mobile */
+  }
+}
+
+.footer .f-link ul li {
+  margin: 0; /* Reset default list item margin */
+}
+
+.footer .f-link ul li a {
+  color: #d6d6d6;
+  font-size: 1rem; /* Slightly larger font for links */
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.footer .f-link ul li a:hover {
+  color: #c080ff; /* Lighter purple on hover */
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Social Icons */
+.footer .socila {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px; /* Space above social icons */
+  margin-bottom: 30px; /* Space below social icons */
+}
+
+.footer .socila li {
+  margin: 0 15px; /* Spacing between social icons */
+}
+
+.footer .socila li a {
+  height: 50px; /* Larger hit area for icons */
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 24px; /* Larger icon size */
+  color: #fff;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+  transition: all 0.3s ease-out 0s;
+  display: flex; /* Use flex to perfectly center icon */
+  justify-content: center;
+  align-items: center;
+}
+
+.footer .socila li a:hover {
+  background-color: #8a2be2; /* Medium purple on hover */
+  color: #fff;
+  transform: scale(1.1); /* Pop effect on hover */
+}
+
+.footer .socila li span {
+  display: none; /* Hide 'Socials :' text */
+}
+
+/* Copyright Section */
+.footer .copyright {
+  text-align: center;
+  padding-top: 20px; /* Space above copyright */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border above copyright */
+}
+
+.footer .copyright p {
+  color: #d6d6d6; /* Light grey for copyright text */
+  font-size: 0.9rem;
+}
+
+.footer .copyright p a {
+  color: #eee;
+  text-decoration: none;
+}
+
+.footer .copyright p a:hover {
+  color: #c080ff; /* Lighter purple on hover */
+}
+
+.scroll-top {
+  width: 45px;
+  height: 45px;
+  line-height: 45px; /* Ensures vertical centering of icon */
+  background: #8a2be2; /* Purple for scroll-top button */
+  color: #fff !important;
+  font-size: 18px; /* Larger icon */
+  position: fixed; /* Stays fixed as you scroll */
+  bottom: 40px; /* Distance from the bottom of the viewport */
+  right: 40px; /* Distance from the right of the viewport */
+  z-index: 999; /* Ensure it's above other content */
+  cursor: pointer;
+  transition: all 0.3s ease-out 0s;
+  border-radius: 4px; /* Square shape with slightly rounded corners */
+  display: flex; /* Use flexbox for perfect centering of icon */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+.scroll-top:hover {
+  background-color: #5d008a; /* Darker purple on hover */
+  transform: translateY(-5px); /* Lift effect on hover */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* More pronounced shadow on hover */
+}
+
+/* General utility classes */
+.color-danger {
+  color: #f73232 !important;
+}
+
+.header-banner {
+  background-color: #6a0dad; /* Purple for header banner */
+  text-align: center;
+  color: #fff;
+}
+
+.slide-up {
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.header-banner .content {
+  margin-right: 0;
+  padding-top: 0.3125rem;
+  padding-bottom: 0.15625rem;
+  height: 2.1875rem;
+}
+.footer .footer-logo h2 { /* Targeting the h2 tag specifically */
+  color: #fbf2ff; /* Lighter purple to complement the H1 neon */
+  font-size: 1.5rem; /* Adjusted font size - smaller than H1 but still prominent */
+  font-weight: 600; /* Bold, but slightly less than H1 */
+  margin-top: 10px; /* Space below H1 */
+  margin-bottom: 0;
+  text-shadow: 0 0 5px #c080ff, 0 0 10px #c080ff; /* Subtle neon glow effect */
+}
+.btn-primary2{
+  color: #fff;
+  background-color: #a131eb;
+  border-color: #cf31eb;
+}

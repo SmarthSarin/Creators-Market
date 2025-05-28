@@ -1,0 +1,89 @@
+{% extends "base/base.html" %} {% load static%} 
+{% block title %}About Us{% endblock %} {% block start %}
+<body>
+  <main class="container d-flex flex-column" style="flex-grow: 1; padding-top: 4rem; padding-bottom: 2rem;">
+    
+    <!-- Hero Section -->
+    <section class="text-center mb-5">
+      <h2 class="hero-heading mb-3">Launch Your Online Store Today!</h2>
+      <p class="hero-sub">
+        Introducing <strong>Creator's Market</strong> — a fully functional, ready-to-deploy e-commerce platform by
+        <span style="color: #ff0088; font-weight: bold;">Smarth Sarin</span>, using Django & BootStrap CSS.
+      </p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="feature-section text-center mb-5">
+      <h2 class="hero-heading mb-4">Key Features</h2>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+        
+        <!-- Feature Card -->
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-list-alt fa-2x mb-3 text-black"></i>
+            <h3 class="mb-2">Easy Product Listing</h3>
+            <p>Add product details, images, pricing, and inventory easily.</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-credit-card fa-2x mb-3 text-black"></i>
+            <h3 class="mb-2">Secure Payment Integration</h3>
+            <p>Integration with payment gateways for secure transactions.</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-shopping-cart fa-2x mb-3 text-black"></i>
+            <h3 class="mb-2">Shopping Cart Functionality</h3>
+            <p>Customers can review and manage their shopping cart.</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-user-shield fa-2x mb-3 text-black "></i>
+            <h3 class="mb-2">User Account Management</h3>
+            <p>Create accounts, manage profiles, and track orders.</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-truck fa-2x mb-3 text-black"></i>
+            <h3 class="mb-2">Order Management System</h3>
+            <p>Tools for owners to manage and process orders.</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="feature p-4 border rounded shadow-sm h-100">
+            <i class="fas fa-chart-bar fa-2x mb-3 text-black"></i>
+            <h3 class="mb-2">Basic Analytics Dashboard</h3>
+            <p>Insights into sales, orders, and customer activity.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section text-center mt-5">
+      <h2 class="hero-heading mb-3">Ready to Get Started?</h2>
+      <p class="hero-sub mb-4">
+        Creator's Market provides everything you need to launch quickly and efficiently.
+      </p>
+      <a href="{% url 'register' %}" class="btn btn-lg px-4 text-white" style="background-color: #6f42c1;">
+        Sign Up Now
+      </a>
+      
+      
+    </section>
+
+  </main>
+</body>
+
+
+
+{% endblock %}

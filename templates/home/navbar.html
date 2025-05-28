@@ -1,0 +1,378 @@
+{% load static %}
+
+<style>
+  
+  /* --- General Header Styles --- */
+  a {
+  text-decoration: none !important;
+}
+  .section-header {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    color: purple !important;
+  }
+
+  /* Top Navigation Bar */
+  .navbar-dark.bg-dark {
+    background-color: #3f005d !important;
+    /* Deep purple for the top navbar */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Center the Navbar Links */
+  .navbar-nav {
+    width: 100%;
+    /* Make sure it takes full width to allow centering */
+    justify-content: center;
+    /* Horizontally center the nav items */
+    margin-right: 0 !important;
+    /* Override Bootstrap's mr-auto */
+    margin-left: 0 !important;
+    /* Override Bootstrap's ml-auto */
+    gap: 20px;
+    /* Keep the gap as before */
+  }
+
+  .navbar-dark .navbar-nav .nav-item {
+    text-align: center;
+    /* Ensure individual nav items are centered if they stack */
+  }
+
+  .navbar-dark .navbar-nav .nav-link {
+    color: #d6d6d6;
+    font-weight: bold;
+    /* Make the font bold */
+    transition: color 0.2s ease;
+  }
+
+  .navbar-dark .navbar-nav .nav-link:hover,
+  .navbar-dark .navbar-nav .nav-link.active {
+    color: #c080ff;
+  }
+
+  /* Main Header Section (Logo, Search, Widgets) */
+  .header-main {
+    padding: 15px 0;
+    background-color: #ffffff;
+  }
+
+  .brand-wrap .logo {
+    max-width: 150px;
+    height: auto;
+  }
+
+  /* Search Bar */
+  .search .form-control {
+    border-radius: 0.25rem 0 0 0.25rem;
+    border-color: #ced4da;
+  }
+
+  .search .btn-primary {
+    border-radius: 0 0.25rem 0.25rem 0;
+    background-color: #8a2be2;
+    border-color: #8a2be2;
+    color: #fff;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .search .btn-primary:hover {
+    background-color: #5d008a;
+    border-color: #5d008a;
+  }
+
+
+  /* --- Widgets Wrap (Cart and Profile) Styles --- */
+  .widgets-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .widgets-wrap .widget-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .widgets-wrap .widget-header .icon {
+    width: 42px;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .widgets-wrap .widget-header .icon:hover {
+    border-color: #8a2be2;
+    color: #8a2be2;
+  }
+
+  .widgets-wrap .widget-header .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .widgets-wrap .widget-header .notify {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 0.75rem;
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    background-color: #c035dc;
+    color: #fff;
+    line-height: 1;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .widgets-wrap .widget-header .text {
+    margin-left: 10px;
+    text-align: left;
+    color: #333;
+  }
+
+  .widgets-wrap .widget-header .text span {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .widgets-wrap .widget-header .text div {
+    display: block;
+    font-size: 0.85rem;
+  }
+
+  .widgets-wrap .widget-header .text div a {
+    color: #8a2be2;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .widgets-wrap .widget-header .text div a:hover {
+    color: #5d008a;
+  }
+
+
+  /* --- Responsive Adjustments for Header --- */
+  @media (max-width: 991.98px) {
+
+    /* Bootstrap's 'lg' breakpoint for smaller screens */
+    .header-main .row {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-main .col-lg-2,
+    .header-main .col-lg-6,
+    .header-main .col-lg-4,
+    .header-main .col-sm-12,
+    .header-main .col-sm-6,
+    .header-main .col-8,
+    .header-main .col-4 {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .header-main .col-lg-6 {
+      order: 1;
+    }
+
+    .header-main .col-lg-2 {
+      order: 0;
+    }
+
+    .header-main .col-lg-4 {
+      order: 2;
+    }
+
+    .widgets-wrap {
+      justify-content: center;
+      float: none !important;
+    }
+
+    .widgets-wrap .widget-header {
+      margin-right: 0;
+      margin: 0 10px;
+    }
+
+    .widgets-wrap .widget-header .text {
+      display: none;
+    }
+  }
+
+  /* Navbar responsiveness adjustments */
+  @media (max-width: 767.98px) {
+    .navbar-nav {
+      flex-direction: column;
+      gap: 0;
+      justify-content: flex-start;
+      /* Align to start when stacked */
+      align-items: center;
+      /* Center items for single column */
+    }
+
+    .navbar-nav .nav-item {
+      width: 100%;
+      text-align: center;
+    }
+
+    .navbar-toggler {
+      margin-left: auto;
+      margin-right: 15px;
+    }
+  }
+</style>
+
+<header class="section-header">
+  <nav class="navbar navbar-dark navbar-expand-md bg-dark">
+    <div class="container">
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto" style="gap: 20px;"> {# The inline style will be overridden by CSS #}
+          <!-- <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li> -->
+          <!-- {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'wishlist' %}">Wishlist ({{ request.user.wishlist.count }})</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'wishlist' %}">Wishlist</a></li>
+          {% endif %} -->
+          <ul class="navbar-nav mr-auto" style="gap: 20px;">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">
+                <i class="fas fa-home me-1"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'order_history' %}">
+                <i class="fas fa-box-open me-1"></i> Your Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'product_reviews' %}">
+                <i class="fas fa-star me-1"></i> Your Reviews
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'contact' %}">
+                <i class="fas fa-envelope me-1"></i> Contact Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'about' %}">
+                <i class="fas fa-info-circle me-1"></i> About Us
+              </a>
+            </li>
+          </ul>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="header-main border-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-2 col-4">
+          <div class="brand-wrap">
+            <a href="{% url 'index' %}">
+              <h3><i class="fas fa-store text-2xl text-fuchsia-300 logo-icon"></i> Creator's Market</h3>
+              <!-- <img class="logo" src="{% static 'images/logo.png' %}" alt="Creator's Market Logo" /> -->
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+          <form method="GET" action="{% url 'product_search' %}" class="search">
+            <div class="input-group w-100">
+              <input type="text" class="form-control" name="q" placeholder="Search" value="{{ query|default:"" }}" />
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-lg-4 col-sm-6 col-8">
+          <div class="widgets-wrap float-md-right">
+            <div class="widget-header">
+              <a href="{% url 'wishlist' %}" class="icon icon-sm rounded-circle border">
+                <i class="fa fa-heart"></i>
+              </a>
+              {% if user.is_authenticated %}
+              <span class="badge badge-pill badge-danger notify">
+                {{ request.user.wishlist.count }}
+              </span>
+              {% else %}
+              <span class="badge badge-pill badge-danger notify">0</span>
+              {% endif %}
+            </div>
+
+            <div class="widget-header">
+              <a href="{% url 'cart' %}" class="icon icon-sm rounded-circle border">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
+              {% if user.is_authenticated %}
+              <span class="badge badge-pill badge-danger notify">
+                {{request.user.profile.get_cart_count}}
+              </span>
+              {% else %}
+              <span class="badge badge-pill badge-danger notify">0</span> {# Default to 0 for non-logged-in users #}
+              {% endif %}
+            </div>
+            
+            <div class="widget-header icontext">
+              {% if user.is_authenticated %}
+              {% if user.profile.profile_image %}
+              <a href="{% url 'profile' username=user.username %}" class="icon icon-sm rounded-circle border">
+                <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="rounded-circle" />
+              </a>
+              {% else %}
+              <a href="{% url 'profile' username=user.username %}" class="icon icon-sm rounded-circle border">
+                <i class="fa fa-user"></i>
+              </a>
+              {% endif %}
+              {% else %}
+              <a href="{% url 'login' %}" class="icon icon-sm rounded-circle border">
+                <i class="fa fa-user"></i>
+              </a>
+              {% endif %}
+
+              <div class="text">
+                {% if request.user.is_authenticated %}
+                <span class="text-muted">Welcome, {{ request.user.username }}!</span>
+                <div>
+                  <a href="{% url 'logout' %}">Logout</a>
+                </div>
+                {% else %}
+                <span class="text-muted">Welcome</span>
+                <div>
+                  <a href="{% url 'login' %}">Sign in</a> |
+                  <a href="{% url 'register' %}">Register</a>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</header>
