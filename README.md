@@ -25,67 +25,82 @@ This project is a full-fledged eCommerce website built using Django, a high-leve
 
 ### Home Page
 
-![Homepage Screenshot](Screenshots/Home-Django-Ecommerce-Site.png)
+![Homepage Screenshot](https://github.com/user-attachments/assets/466a5f52-5edf-467b-beba-a23ac613dde8)
+
 
 ### Wishlist Page
 
-![Wishlist Screenshot](Screenshots/Wishlist.png)
+![image](https://github.com/user-attachments/assets/5ec62b0b-5731-42a2-b384-73b510f534c9)
 
 ### Order History Page
 
-![Order-History Screenshot](Screenshots/Order-History.png)
+![image](https://github.com/user-attachments/assets/81712ce3-d7c2-47c4-9424-bd1d05e89abd)
+
 
 ### Order Details Page
 
-![Order-Deatils Screenshot](Screenshots/Order-Details.png)
+![Screenshot 2025-05-28 101302](https://github.com/user-attachments/assets/56dae1e2-e5a8-4fc4-bc24-c816b75703ce)
+
 
 ### Contact-Us Page
 
-![Contact-Us Screenshot](Screenshots/Contact-Us.png)
+![image](https://github.com/user-attachments/assets/20bad533-0b26-4829-be64-e88776cd2955)
+
 
 ### About-Us Page
 
-![About-Us Screenshot](Screenshots/About-Us.png)
+![image](https://github.com/user-attachments/assets/fe083506-8c51-4e99-9f8a-ec4e766556ba)
+
 
 ### Product Page
 
-![Product Page Screenshot](Screenshots/Product-Image.png)
+![image](https://github.com/user-attachments/assets/2f14468a-4937-420a-9743-af6a1fdf29fa)
+
 
 ### Shopping Cart Page
 
-![Cart Page Screenshot](Screenshots/Shopping-Cart.png)
+![image](https://github.com/user-attachments/assets/bddd64ee-403e-4ae7-a979-25b009eeb100)
+
 
 ### Payment Testing View Page
 
-![Payment Testing Page Screenshot](Screenshots/Payment-Testing-View.png)
+![image](https://github.com/user-attachments/assets/7040621d-d751-4aa6-b879-d3403babd93d)
+
 
 ### Payment Success Page
 
-![Payment Success Page Screenshot](Screenshots/Payment-Successful.png)
+![image](https://github.com/user-attachments/assets/d7645f9d-690c-472e-9ecd-947dc7e8ab76)
+
 
 ### Login Page
 
-![Login Page Screenshot](Screenshots/Login.png)
+![image](https://github.com/user-attachments/assets/e11796a9-f448-4d9a-8781-02a7433519bf)
+
 
 ### Register Page
 
-![Register Page Screenshot](Screenshots/Register.png)
+![image](https://github.com/user-attachments/assets/39281b76-7117-4b3b-8585-99019353e406)
+
 
 ### Reset Password Page
 
-![Reset Password Page Screenshot](Screenshots/Password-Reset-Form.png)
+![image](https://github.com/user-attachments/assets/1e0d2fd8-fe21-454a-8ba8-0c5bfc7b7961)
+
 
 ### Profile Page
 
-![Profile Page Screenshot](Screenshots/Profile.png)
+![image](https://github.com/user-attachments/assets/753ef372-2612-4a6a-8d78-312f348c7af4)
+
 
 ### Shipping Address Page
 
-![Shipping Address Page Screenshot](Screenshots/Shipping-Address.png)
+![image](https://github.com/user-attachments/assets/e9fde370-b24f-40a7-82da-069b68cc8cf3)
+
 
 ### Change Password View
 
-![Change Password Page Screenshot](Screenshots/Change-Password-Page.png)
+![image](https://github.com/user-attachments/assets/0eb0beeb-80e7-48e7-a3f2-4151c029d998)
+
 
 ## Technologies Used
 
@@ -174,7 +189,7 @@ To run this project locally, follow these steps:
 - Follow this step: navigate to `http://127.0.0.1:8000/admin/`, enter your `username and password` which you used to create in `Step no: 6`
 - then follow this screenshot for better understanding :) -
 
-- ![Social Application Screenshot](Screenshots/google_auth-Change-social-application-Django-site-admin.png)
+# - ![Social Application Screenshot](Screenshots/google_auth-Change-social-application-Django-site-admin.png)
 
 - Simply, put your Google Client Id and Secret Id in those two places which I highlighted.
 
