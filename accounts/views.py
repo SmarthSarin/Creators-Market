@@ -23,9 +23,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from accounts.forms import UserUpdateForm, UserProfileForm, ShippingAddressForm, CustomPasswordChangeForm
 
 
-# Create your views here.
-
-
 def login_page(request):
     next_url = request.GET.get('next') # Get the next URL from the query parameter
     if request.method == 'POST':
@@ -409,3 +406,9 @@ def delete_account(request):
         user.delete()
         messages.success(request, "Your account has been deleted successfully.")
         return redirect('index')
+
+
+
+
+
+

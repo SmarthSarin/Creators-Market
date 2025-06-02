@@ -47,3 +47,4 @@ urlpatterns = [
     # Delete user account url
     path('delete-account/', delete_account, name='delete_account'),
 ]
+

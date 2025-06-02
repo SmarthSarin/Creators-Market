@@ -8,8 +8,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product, SizeVariant, ProductReview, Wishlist
 
-# Create your views here.
-
 def get_product(request, slug):
     product = get_object_or_404(Product, slug=slug)
     sorted_size_variants = product.size_variant.all().order_by('size_name')
