@@ -1,6 +1,6 @@
 {% extends "base/base.html"%}
 {% block title %}{{product.product_name}} {% endblock %}
-{% block start %} {% load crispy_forms_tags %}
+{% block start %} {% load crispy_forms_tags %} {% load product_extras %}
 
 <style>
   #mainImage {
@@ -142,7 +142,7 @@
               </ul>
               <small class="label-rating text-muted">{{ product.reviews.count }} reviews</small>
               <small class="label-rating text-success">
-                <i class="fa fa-clipboard-check"></i> 154 orders
+                <i class="fa fa-clipboard-check"></i> {{ product.get_order_count }} orders
               </small>
             </div>
             <!-- rating-wrap.// -->
@@ -205,15 +205,26 @@
                 <label>Select size</label>
                 <div class="mt-1">
                   {% for size in sorted_size_variants %}
-
+                  {% with stock_info=size_stock_info|get_item:size.size_name %}
                   <label class="custom-control custom-radio custom-control-inline">
                     <input type="radio" name="selected_size" value="{{ size.size_name }}" 
                     onchange="get_correct_price('{{ size.size_name }}'); updateCartUrl();" 
                     id="size-{{ size.size_name }}" 
-                    {% if selected_size == size.size_name %} checked {% endif %} class="custom-control-input" />
-                    <div class="custom-control-label">{{ size.size_name }}</div>
+                    {% if selected_size == size.size_name %} checked {% endif %}
+                    {% if stock_info.is_out_of_stock %} disabled {% endif %}
+                    class="custom-control-input" />
+                    <div class="custom-control-label">
+                      {{ size.size_name }}
+                      {% if stock_info.is_out_of_stock %}
+                        <span class="badge badge-danger">Out of Stock</span>
+                      {% elif stock_info.is_low_stock %}
+                        <span class="badge badge-warning">Only {{ stock_info.quantity }} left</span>
+                      {% else %}
+                        <span class="badge badge-success">In Stock</span>
+                      {% endif %}
+                    </div>
                   </label>
-
+                  {% endwith %}
                   {% endfor %}
                 </div>
               </div>

@@ -49,6 +49,7 @@ class Product(BaseModel):
     size_variant = models.ManyToManyField(SizeVariant, blank=True)
     newest_product = models.BooleanField(default=False)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_for_sale', null=True, blank=True) # Example
+    low_stock_threshold = models.PositiveIntegerField(default=5, help_text="Alert when stock falls below this number")
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.product_name)
@@ -67,6 +68,28 @@ class Product(BaseModel):
             return total / self.reviews.count()
         else:
             return 0
+
+    def get_order_count(self):
+        from accounts.models import OrderItem
+        return OrderItem.objects.filter(product=self).count()
+
+    def is_low_stock(self, size_variant=None):
+        if size_variant:
+            stock = ProductStock.objects.filter(product=self, size_variant=size_variant).first()
+            return stock and stock.quantity <= self.low_stock_threshold
+        return False
+
+    def is_out_of_stock(self, size_variant=None):
+        if size_variant:
+            stock = ProductStock.objects.filter(product=self, size_variant=size_variant).first()
+            return not stock or stock.quantity <= 0
+        return False
+
+    def get_stock_quantity(self, size_variant=None):
+        if size_variant:
+            stock = ProductStock.objects.filter(product=self, size_variant=size_variant).first()
+            return stock.quantity if stock else 0
+        return 0
 
 
 class ProductImage(BaseModel):
@@ -114,3 +137,21 @@ class Wishlist(BaseModel):
 
     def __str__(self) -> str:
         return f'{self.user.username} - {self.product.product_name} - {self.size_variant.size_name if self.size_variant else "No Size"}'
+
+
+class ProductStock(BaseModel):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='stock')
+    size_variant = models.ForeignKey(SizeVariant, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        unique_together = ('product', 'size_variant')
+
+    def __str__(self):
+        return f"{self.product.product_name} - {self.size_variant.size_name}: {self.quantity}"
+
+    def is_low_stock(self):
+        return self.quantity <= self.product.low_stock_threshold
+
+    def is_out_of_stock(self):
+        return self.quantity <= 0

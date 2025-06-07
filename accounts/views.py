@@ -118,11 +118,26 @@ def add_to_cart(request, uid):
         cart, _ = Cart.objects.get_or_create(user=request.user, is_paid=False)
         size_variant = get_object_or_404(SizeVariant, size_name=variant)
 
+        # Check stock availability
+        stock = ProductStock.objects.filter(product=product, size_variant=size_variant).first()
+        if not stock or stock.quantity <= 0:
+            messages.error(request, 'Sorry, this item is out of stock!')
+            return redirect(request.META.get('HTTP_REFERER'))
+
+        # Check if adding one more would exceed stock
         cart_item, created = CartItem.objects.get_or_create(
             cart=cart, product=product, size_variant=size_variant)
+        
         if not created:
+            if cart_item.quantity + 1 > stock.quantity:
+                messages.error(request, f'Sorry, only {stock.quantity} items available in stock!')
+                return redirect(request.META.get('HTTP_REFERER'))
             cart_item.quantity += 1
             cart_item.save()
+
+        # Check for low stock warning
+        if stock.is_low_stock():
+            messages.warning(request, f'Warning: Only {stock.quantity} items left in stock!')
 
         messages.success(request, 'Item added to cart successfully.')
 
@@ -518,9 +533,3 @@ def delete_account(request):
         user.delete()
         messages.success(request, "Your account has been deleted successfully.")
         return redirect('index')
-
-
-
-
-
-

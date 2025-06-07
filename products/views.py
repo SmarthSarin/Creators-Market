@@ -6,12 +6,22 @@ from accounts.models import Cart, CartItem
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from products.models import Product, SizeVariant, ProductReview, Wishlist
+from products.models import Product, SizeVariant, ProductReview, Wishlist, ProductStock
 
 def get_product(request, slug):
     product = get_object_or_404(Product, slug=slug)
     sorted_size_variants = product.size_variant.all().order_by('size_name')
     related_products = list(product.category.products.filter(parent=None).exclude(uid=product.uid))
+
+    # Get stock information for each size variant
+    size_stock_info = {}
+    for size in sorted_size_variants:
+        stock = ProductStock.objects.filter(product=product, size_variant=size).first()
+        size_stock_info[size.size_name] = {
+            'quantity': stock.quantity if stock else 0,
+            'is_low_stock': product.is_low_stock(size),
+            'is_out_of_stock': product.is_out_of_stock(size)
+        }
 
     # Review product view
     review = None
@@ -59,6 +69,7 @@ def get_product(request, slug):
         'review_form': review_form,
         'rating_percentage': rating_percentage,
         'in_wishlist': in_wishlist,
+        'size_stock_info': size_stock_info,
     }
 
     if request.GET.get('size'):
