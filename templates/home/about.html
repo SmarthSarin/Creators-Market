@@ -5,68 +5,85 @@
     
     <!-- Hero Section -->
     <section class="text-center mb-5">
-      <h2 class="hero-heading mb-3">Launch Your Online Store Today!</h2>
-      <p class="hero-sub">
+  <h2 class="display-5 fw-semibold mb-4">
+    <span style="color: #6f42c1;">Launch Your Online Store Today! </span>
+  </h2>
+      {% comment %} <p class="hero-sub">
         Introducing <strong>Creator's Market</strong> — a fully functional, ready-to-deploy e-commerce platform by
         <span style="color: #ff0088; font-weight: bold;">Smarth Sarin</span>, using Django & BootStrap CSS.
-      </p>
+      </p> {% endcomment %}
+      <p class="fs-1 fw-semibold text-secondary mb-3" style="line-height: 1.5;">
+      A fully functional, production-ready platform made by using 
+      <strong class="text-dark">Django</strong> and <strong class="text-dark">Bootstrap CSS</strong>, 
+      Developed by <span class="fw-bold text-danger">Smarth Sarin</span> as part of the 
+      <strong class="text-dark">BCA Final Year Major Project</strong> at 
+      <strong class="text-dark">Amity University Online</strong>.
+    </p>
+
     </section>
 
     <!-- Features Section -->
     <section id="about" class="feature-section text-center mb-5">
       <h2 class="hero-heading mb-4">Key Features</h2>
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
-        
-        <!-- Feature Card -->
+
+        <!-- Product Management -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-list-alt fa-2x mb-3 text-black"></i>
-            <h3 class="mb-2">Easy Product Listing</h3>
-            <p>Add product details, images, pricing, and inventory easily.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-cubes fa-2x mb-3 text-primary"></i>
+            <h3 class="mb-2">Product Management</h3>
+            <p>Easily add and manage product details, images, categories, prices, and stock levels.</p>
           </div>
         </div>
 
+        <!-- Payments -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-credit-card fa-2x mb-3 text-black"></i>
-            <h3 class="mb-2">Secure Payment Integration</h3>
-            <p>Integration with payment gateways for secure transactions.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-lock fa-2x mb-3 text-success"></i>
+            <h3 class="mb-2">Secure Payments</h3>
+            <p>Integrated with Razorpay for seamless and secure online transactions.</p>
           </div>
         </div>
 
+        <!-- Cart & Wishlist -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-shopping-cart fa-2x mb-3 text-black"></i>
-            <h3 class="mb-2">Shopping Cart Functionality</h3>
-            <p>Customers can review and manage their shopping cart.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-shopping-cart fa-2x mb-3 text-warning"></i>
+            <h3 class="mb-2">Smart Cart & Wishlist</h3>
+            <p>Allow users to manage cart items and save products for later with wishlist functionality.</p>
           </div>
         </div>
 
+        <!-- User Accounts -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-user-shield fa-2x mb-3 text-black "></i>
-            <h3 class="mb-2">User Account Management</h3>
-            <p>Create accounts, manage profiles, and track orders.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-user-circle fa-2x mb-3 text-danger"></i>
+            <h3 class="mb-2">User Profiles</h3>
+            <p>Users can register, log in, and securely manage their personal information and order history.</p>
           </div>
         </div>
 
+        <!-- Support & Contact -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-truck fa-2x mb-3 text-black"></i>
-            <h3 class="mb-2">Order Management System</h3>
-            <p>Tools for owners to manage and process orders.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-headset fa-2x mb-3 text-info"></i>
+            <h3 class="mb-2">Support System</h3>
+            <p>Contact form powered by Formspree for easy communication and quick support without backend setup.</p>
           </div>
         </div>
 
+        <!-- Invoices & Reviews -->
         <div class="col">
-          <div class="feature p-4 border rounded shadow-sm h-100">
-            <i class="fas fa-chart-bar fa-2x mb-3 text-black"></i>
-            <h3 class="mb-2">Basic Analytics Dashboard</h3>
-            <p>Insights into sales, orders, and customer activity.</p>
+          <div class="feature p-4 border rounded shadow-sm h-100 bg-white">
+            <i class="fas fa-file-invoice fa-2x mb-3 text-secondary"></i>
+            <h3 class="mb-2">Invoices & Reviews</h3>
+            <p>PDF invoices generated via WeasyPrint and product review system built for genuine feedback.</p>
           </div>
         </div>
+
       </div>
     </section>
+
 
     <!-- Call to Action -->
     <section class="cta-section text-center mt-5">

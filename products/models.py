@@ -2,7 +2,7 @@ from django.db import models
 from base.models import BaseModel
 from django.utils.text import slugify
 from django.utils.html import mark_safe
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User # Or your Seller model
 
 # Create your models here.
 
@@ -48,6 +48,7 @@ class Product(BaseModel):
     color_variant = models.ManyToManyField(ColorVariant, blank=True)
     size_variant = models.ManyToManyField(SizeVariant, blank=True)
     newest_product = models.BooleanField(default=False)
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products_for_sale', null=True, blank=True) # Example
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.product_name)

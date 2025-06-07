@@ -5,7 +5,7 @@ import razorpay
 from weasyprint import CSS, HTML
 from products.models import *
 from django.urls import reverse
-from django.conf import settings
+from django.conf import settings # Ensure this import is at the top
 from django.contrib import messages
 from django.http import JsonResponse
 from home.models import ShippingAddress
@@ -21,6 +21,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.shortcuts import redirect, render, get_object_or_404
 from accounts.forms import UserUpdateForm, UserProfileForm, ShippingAddressForm, CustomPasswordChangeForm
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
 
 
 def login_page(request):
@@ -239,6 +242,57 @@ def success(request):
     # Create the order after payment is confirmed
     order = create_order(cart)
 
+    # Generate PDF invoice
+    order_items = order.order_items.all()
+    context = {
+        'order': order,
+        'order_items': order_items,
+    }
+    pdf = render_to_pdf('accounts/order_pdf_generate.html', context)
+
+    # Send thank you email with PDF attachment
+    subject = f"Thank you for your order #{order.order_id}"
+    message = f"""
+    Dear {order.user.get_full_name() or order.user.username},
+
+    Thank you for your purchase! Your order has been successfully placed.
+
+    Order Details:
+    Order ID: {order.order_id}
+    Total Amount: ₹{order.grand_total}
+    Payment Status: {order.payment_status}
+    Payment Mode: {order.payment_mode}
+
+    Please find your invoice attached to this email.
+
+    Thank you for shopping with us!
+
+    Best regards,
+    Creator's Market Team
+    """
+
+    try:
+        # Create email message with PDF attachment
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+        from email.mime.application import MIMEApplication
+        from django.core.mail import EmailMessage
+
+        email = EmailMessage(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [order.user.email],
+        )
+        
+        # Attach the PDF
+        email.attach(f'invoice_{order.order_id}.pdf', pdf.getvalue(), 'application/pdf')
+        email.send(fail_silently=False)
+        
+        print(f"Thank you email sent to {order.user.email} for order {order.order_id}")
+    except Exception as e:
+        print(f"Error sending thank you email: {e}")
+
     # Clear the cart after successful payment
     cart.cart_items.all().delete()
 
@@ -336,9 +390,13 @@ def update_shipping_address(request):
             shipping_address.current_address = True
             shipping_address.save()
 
-            messages.success(request, "The Address Has Been Successfully Saved/Updated!")
+            # Update the user's profile with the new shipping address
+            profile = request.user.profile
+            profile.shipping_address = shipping_address
+            profile.save()
 
-            form = ShippingAddressForm()
+            messages.success(request, "The Address Has Been Successfully Saved/Updated!")
+            return redirect('shipping-address')
         else:
             form = ShippingAddressForm(request.POST, instance=shipping_address)
     else:
@@ -356,11 +414,17 @@ def order_history(request):
 
 # Create an order view
 def create_order(cart):
+    # Format shipping address as a string
+    shipping_address_str = "Not Provided"
+    if cart.user.profile.shipping_address:
+        addr = cart.user.profile.shipping_address
+        shipping_address_str = f"{addr.first_name} {addr.last_name}\n{addr.street} {addr.street_number}\n{addr.city}, {addr.country}\n{addr.zip_code}\nPhone: {addr.phone}"
+
     order, created = Order.objects.get_or_create(
         user=cart.user,
         order_id=cart.razorpay_order_id,
         payment_status="Paid",
-        shipping_address=cart.user.profile.shipping_address,
+        shipping_address=shipping_address_str,
         payment_mode="Razorpay",
         order_total_price=cart.get_cart_total(),
         coupon=cart.coupon,
@@ -370,14 +434,62 @@ def create_order(cart):
     # Create OrderItem instances for each item in the cart
     cart_items = CartItem.objects.filter(cart=cart)
     for cart_item in cart_items:
-        OrderItem.objects.get_or_create(
+        order_item, item_created = OrderItem.objects.get_or_create( 
             order=order,
             product=cart_item.product,
-            size_variant=cart_item.size_variant,
-            color_variant=cart_item.color_variant,
+            size_variant=cart_item.size_variant, # Size is on the OrderItem model
+            color_variant=cart_item.color_variant, # Color is on the OrderItem model
             quantity=cart_item.quantity,
-            product_price=cart_item.get_product_price()
+            defaults={'product_price': cart_item.get_product_price()} 
         )
+        
+        if item_created or not order_item.product_price:
+             order_item.product_price = cart_item.get_product_price()
+             order_item.save()
+
+        # --- Seller Notification Logic using settings.SELLER_EMAIL --- 
+        seller_email_address = settings.SELLER_EMAIL
+        if seller_email_address:
+            # Prepare details for the email
+            purchaser_name = order.user.get_full_name() or order.user.username
+            shipping_address_details = order.shipping_address  # Use the formatted address string directly
+            
+            product_size = order_item.size_variant.size_name if order_item.size_variant else "N/A"
+            product_color = order_item.color_variant.color_name if order_item.color_variant else "N/A"
+
+            subject = f"New Order Received for {order_item.product.product_name}"
+            message = (
+                f"Hello,\n\n"
+                f"A new order has been placed for your product: {order_item.product.product_name}.\n\n"
+                f"Order Details:\n"
+                f"  Order ID: {order.order_id}\n"
+                f"  Product Name: {order_item.product.product_name}\n"
+                f"  Quantity: {order_item.quantity}\n"
+                f"  Size: {product_size}\n"
+                f"  Color: {product_color}\n"
+                f"  Price per item: {order_item.product_price}\n"
+                f"  Total for this item: {order_item.get_total_price()}\n\n"
+                f"Purchased By:\n"
+                f"  Name: {purchaser_name}\n"
+                f"  Email: {order.user.email}\n\n"
+                f"Shipping Address:\n{shipping_address_details}\n\n"
+                f"Thank you."
+            )
+            
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL, 
+                    [seller_email_address],
+                    fail_silently=False, 
+                )
+                print(f"Seller notification email sent to {seller_email_address} for product {order_item.product.product_name}")
+            except Exception as e:
+                print(f"Error sending seller notification email: {e}")
+        else:
+            print(f"SELLER_EMAIL not configured in settings. Skipping notification for product {order_item.product.product_name}.")
+        # --- End Seller Notification Logic ---
 
     return order
 
