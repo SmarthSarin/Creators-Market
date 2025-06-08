@@ -257,6 +257,40 @@ def success(request):
     # Create the order after payment is confirmed
     order = create_order(cart)
 
+    # Update stock quantities for each item in the order
+    for order_item in order.order_items.all():
+        try:
+            stock = ProductStock.objects.get(
+                product=order_item.product,
+                size_variant=order_item.size_variant
+            )
+            # Decrease stock quantity
+            stock.quantity -= order_item.quantity
+            stock.save()
+            
+            # If stock is now low, send notification to admin
+            if stock.is_low_stock():
+                subject = f"Low Stock Alert: {order_item.product.product_name}"
+                message = f"""
+                Low stock alert for product: {order_item.product.product_name}
+                Size: {order_item.size_variant.size_name}
+                Current stock: {stock.quantity}
+                Low stock threshold: {order_item.product.low_stock_threshold}
+                """
+                try:
+                    send_mail(
+                        subject,
+                        message,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [settings.SELLER_EMAIL],
+                        fail_silently=False,
+                    )
+                except Exception as e:
+                    print(f"Error sending low stock alert: {e}")
+                    
+        except ProductStock.DoesNotExist:
+            print(f"Stock not found for product {order_item.product.product_name} and size {order_item.size_variant.size_name}")
+
     # Generate PDF invoice
     order_items = order.order_items.all()
     context = {
@@ -452,8 +486,8 @@ def create_order(cart):
         order_item, item_created = OrderItem.objects.get_or_create( 
             order=order,
             product=cart_item.product,
-            size_variant=cart_item.size_variant, # Size is on the OrderItem model
-            color_variant=cart_item.color_variant, # Color is on the OrderItem model
+            size_variant=cart_item.size_variant,
+            color_variant=cart_item.color_variant,
             quantity=cart_item.quantity,
             defaults={'product_price': cart_item.get_product_price()} 
         )
@@ -469,8 +503,14 @@ def create_order(cart):
             purchaser_name = order.user.get_full_name() or order.user.username
             shipping_address_details = order.shipping_address  # Use the formatted address string directly
             
+            # Get color and size information
             product_size = order_item.size_variant.size_name if order_item.size_variant else "N/A"
-            product_color = order_item.color_variant.color_name if order_item.color_variant else "N/A"
+            product_colors = []
+            if order_item.color_variant:
+                product_colors.append(order_item.color_variant.color_name)
+            elif order_item.product.color_variant.exists():
+                product_colors = [color.color_name for color in order_item.product.color_variant.all()]
+            product_color = ", ".join(product_colors) if product_colors else "N/A"
 
             subject = f"New Order Received for {order_item.product.product_name}"
             message = (
