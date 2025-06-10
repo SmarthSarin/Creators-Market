@@ -2,6 +2,29 @@
 {% block title %}Your Reviews{% endblock %}
 {% block start %} {% load static %}
 
+<style>
+  .product-title-link {
+    color: #6a0dad;
+    transition: color 0.3s ease;
+  }
+  
+  .product-title-link:hover {
+    color: #4b0082;
+    text-decoration: none;
+  }
+
+  .edit-review-btn {
+    color: #6a0dad !important;
+    border-color: #6a0dad !important;
+    transition: all 0.3s ease;
+  }
+
+  .edit-review-btn:hover {
+    background-color: #6a0dad !important;
+    color: white !important;
+  }
+</style>
+
 <div class="container my-3 p-4 rounded shadow" style="background-color: #f8f9fa">
   {% include 'base/alert.html' %}
   <h2 class="mb-4 text-center">Product Reviews</h2>
@@ -25,7 +48,7 @@
           <div class="col-8">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'get_product' review.product.slug %}" class="text-decoration-none">
+                <a href="{% url 'get_product' review.product.slug %}" class="text-decoration-none product-title-link">
                   {{ review.product.product_name }}
                 </a>
               </h5>
@@ -41,8 +64,8 @@
         <!-- Buttons -->
         <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
           <button
-            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center"
-            style="width: 45%; border-radius: 30px; font-weight: 500"
+            class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center edit-review-btn"
+            style="width: 45%; border-radius: 30px; font-weight: 500;"
             data-bs-toggle="modal"
             data-bs-target="#editReviewModal"
             data-review-id="{{ review.uid }}"

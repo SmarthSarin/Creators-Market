@@ -5,7 +5,7 @@ import razorpay
 from weasyprint import CSS, HTML
 from products.models import *
 from django.urls import reverse
-from django.conf import settings # Ensure this import is at the top
+from django.conf import settings
 from django.contrib import messages
 from django.http import JsonResponse
 from home.models import ShippingAddress
@@ -23,7 +23,6 @@ from django.shortcuts import redirect, render, get_object_or_404
 from accounts.forms import UserUpdateForm, UserProfileForm, ShippingAddressForm, CustomPasswordChangeForm
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.conf import settings
 
 
 def login_page(request):
@@ -573,3 +572,4 @@ def delete_account(request):
         user.delete()
         messages.success(request, "Your account has been deleted successfully.")
         return redirect('index')
+

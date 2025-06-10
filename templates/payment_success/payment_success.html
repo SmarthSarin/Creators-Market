@@ -2,13 +2,37 @@
 {% block title %}Payment Successful!{% endblock %}
 {% block start %}
 
+<style>
+  .success-btn {
+    color: #6a0dad;
+    border-color: #6a0dad;
+    transition: all 0.3s ease;
+  }
+
+  .success-btn:hover {
+    background-color: #6a0dad;
+    color: white;
+  }
+
+  .details-btn {
+    color: #6a0dad;
+    border-color: #6a0dad;
+    transition: all 0.3s ease;
+  }
+
+  .details-btn:hover {
+    background-color: #6a0dad;
+    color: white;
+  }
+</style>
+
 <!-- ============================ COMPONENT Payment Success ================================= -->
 <section class="section-content padding-bottom">
   <div class="container-xl d-flex justify-content-center align-items-center mt-5">
     <div class="row justify-content-center w-100">
       <div class="col-xl-5">
         <div class="card mb-4">
-          <div class="card-header" style="text-align: center; font-size: 25px">
+          <div class="card-header" style="text-align: center; font-size: 25px; color: #6a0dad;">
             Payment Successful!
           </div>
           <div class="card-body text-center">
@@ -17,10 +41,10 @@
               been successfully processed.
             </p>
             <p>Thank you for shopping with us!</p>
-            <a href="{% url 'index' %}" class="btn btn-primary mt-3 mb-3 mr-3">
+            <a href="{% url 'index' %}" class="btn btn-outline-primary success-btn mt-3 mb-3 mr-3">
               Continue Shopping
             </a>
-            <a href="{% url 'order_details' order_id=order_id %}" class="btn btn-warning">
+            <a href="{% url 'order_details' order_id=order_id %}" class="btn btn-outline-primary details-btn">
               View Order Details
             </a>
           </div>

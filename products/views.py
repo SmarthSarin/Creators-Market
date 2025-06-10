@@ -157,6 +157,15 @@ def add_to_wishlist(request, uid):
 
     product = get_object_or_404(Product, uid=uid)
     size_variant = get_object_or_404(SizeVariant, size_name=variant)
+    
+    # Check if item is in cart and remove it
+    cart = Cart.objects.filter(user=request.user, is_paid=False).first()
+    if cart:
+        cart_item = CartItem.objects.filter(cart=cart, product=product, size_variant=size_variant).first()
+        if cart_item:
+            cart_item.delete()
+            messages.success(request, "Item moved from cart to wishlist!")
+    
     wishlist, created = Wishlist.objects.get_or_create(
         user=request.user, product=product, size_variant=size_variant)
 

@@ -2,6 +2,18 @@
 {% block title %}Order History{% endblock title %} 
 {% load static %} {% block start %}
 
+<style>
+  .btn-outline-primary {
+    color: #6a0dad !important;
+    border-color: #6a0dad !important;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #6a0dad !important;
+    color: white !important;
+  }
+</style>
+
 <div class="container mt-4">
   <h3 class="form-group mb-4">Order History</h3>
   <div class="table-responsive">
@@ -31,7 +43,7 @@
             <td>₹{{ order.grand_total }}</td>
             <td>{{ order.payment_mode }}</td>
             <td>
-                <a href="{% url 'order_details' order.order_id %}" class="btn btn-outline-primary btn-sm">
+                <a href="{% url 'order_details' order.order_id %}" class="btn btn-outline-primary btn-sm" style="color: #6a0dad; border-color: #6a0dad;">
                 View Details
                 </a>
             </td>

@@ -23,14 +23,83 @@
 
   .card {
     animation: appear linear;
-    animation-timeline: view(); /* optional */
+    animation-timeline: view();
     animation-range: entry 0% cover 40%;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(106, 13, 173, 0.2);
   }
 
   .category-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .btn-outline-primary {
+    color: #6a0dad !important;
+    border-color: #6a0dad !important;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #6a0dad !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(106, 13, 173, 0.2);
+  }
+
+  .card-product-grid {
+    transition: all 0.3s ease;
+  }
+
+  .card-product-grid:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(106, 13, 173, 0.2);
+  }
+
+  .card-product-grid .title {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .card-product-grid:hover .title {
+    color: #6a0dad;
+  }
+
+  .card-product-grid .img-wrap {
+    overflow: hidden;
+  }
+
+  .card-product-grid .img-wrap img {
+    transition: transform 0.3s ease;
+  }
+
+  .card-product-grid:hover .img-wrap img {
+    transform: scale(1.05);
+  }
+
+  .price {
+    color: #6a0dad !important;
+    font-weight: bold;
+  }
+
+  /* Override any Bootstrap default colors */
+  .text-success {
+    color: #6a0dad !important;
+  }
+
+  .btn-primary {
+    background-color: #6a0dad !important;
+    border-color: #6a0dad !important;
+  }
+
+  .btn-primary:hover {
+    background-color: #4b0082 !important;
+    border-color: #4b0082 !important;
   }
 </style>
 
@@ -62,7 +131,7 @@
           <img src="{{ category.category_image.url }}" class="card-img-top" alt="{{ category.category_name }}">
           <div class="card-body text-center">
             <h5 class="card-title">{{ category.category_name }}</h5>
-            <a href="?category={{ category.category_name }}" class="btn btn-outline-primary">Browse</a>
+            <a href="?category={{ category.category_name }}" class="btn btn-outline-primary" style="color: #6a0dad; border-color: #6a0dad; hover: { background-color: #6a0dad; color: white; }">Browse</a>
           </div>
         </div>
       </div>

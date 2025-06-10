@@ -89,7 +89,7 @@ class Product(BaseModel):
         if size_variant:
             stock = ProductStock.objects.filter(product=self, size_variant=size_variant).first()
             return stock.quantity if stock else 0
-        return 0
+            return 0
 
 
 class ProductImage(BaseModel):

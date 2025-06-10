@@ -14,7 +14,7 @@
   }
 
   .like-btn {
-    background-color: #389659;
+    background-color: #28a745;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -24,13 +24,13 @@
   }
 
   .like-btn:hover {
-    background-color: #45c16b;
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(89, 238, 141, 0.5);
+    background-color: #218838;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
   }
   
   .dislike-btn {
-    background-color: #db3939;
+    background-color: #dc3545;
     color: #fff;
     border: none;
     border-radius: 20px;
@@ -40,9 +40,9 @@
   }
 
   .dislike-btn:hover {
-    background-color: #d65a5a;
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 118, 117, 0.5);
+    background-color: #c82333;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
   }
   
   @media (max-width: 768px) {
@@ -56,30 +56,54 @@
 .btn-primary {
   color: #fff;
   background-color: #6a0dad;
-  border-color: #3f005d;
+  border-color: #6a0dad;
+  transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  color: #fff; /* Keep white text */
-  background-color: #3f005d; /* Slightly darker purple on hover */
-  border-color: #3f005d; /* Even darker border for hover */
+  color: #fff;
+  background-color: #a660d8;
+  border-color: #6a0dad;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.2);
 }
 
 /* Outline Primary Button */
 .btn-outline-primary {
-  color: #9614ad; /* Set initial text color */
+  color: #6a0dad;
   background-color: transparent;
-  border-color: #9614ad;
+  border-color: #6a0dad;
+  transition: all 0.3s ease;
 }
 
 .btn-outline-primary:hover {
-  color: #fff; /* Text becomes white on hover */
-  background-color: #9614ad; /* Fill background on hover */
-  border-color: #9614ad;
+  color: #fff;
+  background-color: #6a0dad;
+  border-color: #6a0dad;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.2);
 }
 
+/* Review Card */
+.review-card {
+  background-color: rgba(56, 41, 41, 0.1);
+}
 
-  
+/* Review Submit Button */
+.submit-review-btn {
+  background-color: #6a0dad;
+  border-color: #6a0dad;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.submit-review-btn:hover {
+  background-color: #a660d8;
+  border-color: #6a0dad;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.2);
+}
 </style>
 
 <section class="section-content padding-y">
@@ -162,7 +186,7 @@
             <br />
             <dl class="row">
               <dt class="col-sm-3">Brand</dt>
-              <dd class="col-sm-9">Nike</dd>
+              <dd class="col-sm-9">Creator's Markert Originals</dd>
 
               <dt class="col-sm-3">Color</dt>
               <dd class="col-sm-9">
@@ -275,7 +299,7 @@
 
     {% for review in product.reviews.all %}
     <div class="card mb-3">
-      <div class="card-body" style="background-color: #59ee8d91">
+      <div class="card-body review-card">
         <div class="d-flex justify-content-between align-items-center">
           <div>
             <p>
@@ -344,10 +368,10 @@
           {% if request.user.is_authenticated %}
           <form method="POST" action="">
             {% csrf_token %} {{ review_form|crispy }}
-            <button class="btn btn-success">Submit</button>
+            <button class="btn submit-review-btn">Submit Review</button>
           </form>
           {% else %}
-          <p>Please <a href="{% url 'login' %}"> sign in </a> to add review!</p>
+          <p>Please <a href="{% url 'login' %}" style="color: #6a0dad;"> sign in </a> to add review!</p>
           {% endif %}
         </div>
       </div>

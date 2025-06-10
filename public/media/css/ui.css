@@ -146,13 +146,13 @@ a:hover {
 .hover-bg:hover {
   background: #6a0dad;
   /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, #c631eb, #c631eb);
+  background: -webkit-linear-gradient(left top, #6a0dad, #4b0082);
   /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, #c631eb, #c631eb);
+  background: -o-linear-gradient(bottom right, #6a0dad, #4b0082);
   /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, #c631eb, #c631eb);
+  background: -moz-linear-gradient(bottom right, #6a0dad, #4b0082);
   /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, #c631eb, #c631eb);
+  background: linear-gradient(to bottom right, #6a0dad, #4b0082);
   /* Standard syntax */
   transition: 0.5s;
 }
@@ -267,7 +267,7 @@ article:after,
 }
 
 .bg-blue {
-  background-color: #dc31eb;
+  background-color: #6a0dad;
 }
 
 .bg-red {
@@ -279,25 +279,25 @@ article:after,
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(
     left top,
-    rgba(189, 49, 235, 0.65),
+    rgba(106, 13, 173, 0.65),
     rgba(33, 37, 41, 0.4)
   );
   /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(
     bottom right,
-    rgba(148, 49, 235, 0.65),
+    rgba(106, 13, 173, 0.65),
     rgba(33, 37, 41, 0.4)
   );
   /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(
     bottom right,
-    rgba(176, 49, 235, 0.65),
+    rgba(106, 13, 173, 0.65),
     rgba(33, 37, 41, 0.4)
   );
   /* For Firefox 3.6 to 15 */
   background: linear-gradient(
     to bottom right,
-    rgba(235, 49, 217, 0.65),
+    rgba(106, 13, 173, 0.65),
     rgba(33, 37, 41, 0.4)
   );
   /* Standard syntax */
@@ -565,7 +565,7 @@ p:last-child {
   color: #545454;
 }
 .widget-header a:hover {
-  color: #8e31eb;
+  color: #6a0dad;
 }
 .widget-header i {
   color: #969696;
@@ -582,7 +582,7 @@ p:last-child {
   right: -10px;
 }
 .widget-header:hover i {
-  color: #d531eb;
+  color: #6a0dad;
 }
 
 /* desktop only */
@@ -595,7 +595,7 @@ p:last-child {
   color: inherit;
 }
 .section-footer ul a:hover {
-  color: #cc31eb;
+  color: #6a0dad;
 }
 .section-footer .logo-footer {
   height: 40px;
